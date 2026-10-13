@@ -20,6 +20,8 @@ pose = make_pose(args.backend)
 out = Path(args.out)
 out.mkdir(parents=True, exist_ok=True)
 for vid in sorted(Path(args.data).glob("*.mp4")):
+    if (out / f"{vid.stem}.npz").exists():
+        continue
     kps, lat, shape = [], [], None
     for _, _, frame in iter_frames(vid):
         shape = frame.shape[:2]

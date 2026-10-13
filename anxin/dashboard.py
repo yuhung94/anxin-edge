@@ -153,6 +153,12 @@ def render(s: dict) -> np.ndarray:
         b = s["banner"]
         _wrap(d, (44, 604), b["text"], F[(20, "medium")], b.get("color", TEXT), 1180, 30)
 
+    if s.get("disclaimer"):
+        dtx = s["disclaimer"]
+        dw = F[(13, "medium")].getlength(dtx) + 20
+        _rr(d, (32, 100, 32 + dw, 124), (60, 44, 10), r=8, outline=AMBER)
+        d.text((42, 104), dtx, font=F[(13, "medium")], fill=AMBER)
+
     if s.get("caption"):
         cap = s["caption"]
         tw = F[(20, "medium")].getlength(cap) + 32
@@ -160,3 +166,66 @@ def render(s: dict) -> np.ndarray:
         d.text((360 - tw / 2, 526), cap, font=F[(20, "medium")], fill=(255, 255, 255))
 
     return cv2.cvtColor(np.asarray(img), cv2.COLOR_RGB2BGR)
+
+
+# ---------------------------------------------------------------- guardian view
+STEP_TEXT = {
+    "vlm": "T1 suspected a fall — the on-device VLM is checking ONE keyframe (held in RAM) …",
+    "ask": "Fall confirmed — AnXin is speaking to the person …",
+    "listen": "Listening for a reply …",
+    "understand": "Whisper is transcribing, the rules + LLM decide the intent …",
+    "write": "LLM is writing the text message for the family …",
+    "send": "Sending text-only alert to the family-phone receiver …",
+}
+
+
+def guardian_view(rec, st: dict, disclaimer: str | None = None, pose_ms: float | None = None, backend: str | None = None) -> dict:
+    """Map a Guardian status (+ current FrameRecord) to dashboard render() input."""
+    step, phase = st.get("step"), st.get("phase", "MONITORING")
+    vlm = getattr(rec, "vlm", None) or st.get("last_vlm")
+    t0 = {"name": "T0  Pose  ·  YOLOv8s-pose", "status": "ok", "detail": "17 keypoints per frame",
+          "right": f"{pose_ms:.0f} ms/frame" if pose_ms else None}
+    t1 = {"name": "T1  Skeleton fall state machine", "status": "idle", "detail": "watching for fast drop + stay down"}
+    if rec.state in ("DESCENDING", "DOWN"):
+        t1.update(status="run", detail="person is low / horizontal …")
+    elif rec.state == "SUSPECTED_FALL":
+        t1.update(status="alert", detail="suspected fall")
+    t2 = {"name": "T2  VLM verify  ·  Qwen2-VL-2B", "status": "idle", "detail": "sleeps until T1 fires"}
+    if step == "vlm":
+        t2.update(status="run", detail="checking one keyframe …")
+    elif vlm is not None:
+        t2.update(status="alert" if vlm["is_fall"] else "ok",
+                  detail=f"“{vlm['choice']}) {vlm['label']}”  ›  " + ("confirmed" if vlm["is_fall"] else "dismissed"),
+                  right=f"{vlm['ms']:.0f} ms" if vlm.get("ms") else None)
+    t3 = {"name": "T3  Voice check-in  ·  Whisper-Base + Qwen2.5-1.5B", "status": "idle", "detail": "talks to the person, decides escalation"}
+    if step in ("ask", "listen", "understand", "write", "send"):
+        t3.update(status="run", detail=STEP_TEXT[step].split("—")[-1].strip())
+    if st.get("intent"):
+        t3.update(status="ok" if st["intent"] == "OK" else "alert",
+                  detail=f"heard “{st.get('transcript', '')[:48]}”  ›  {st['intent']} (by {st.get('decided_by')})")
+    if phase == "WATCHING":
+        t3["right"] = f"long-lie timer {st.get('watch_left_s', 0):.1f} s"
+    out = {"frame": rec.frame, "kps": rec.kps, "feats": rec.feats, "t": rec.t, "state": rec.state,
+           "tiers": [t0, t1, t2, t3], "disclaimer": disclaimer}
+    if backend:
+        out["backend"] = backend
+    alerts = st.get("alerts") or []
+    if step in STEP_TEXT:
+        out["banner"] = {"text": STEP_TEXT[step], "color": AMBER}
+    elif alerts:
+        main = [x for x in alerts if x["level"] in ("URGENT", "FYI")][-1]
+        detail = alerts[-1]["message"] if alerts[-1]["kind"] == "details" else None
+        r, tm = main.get("receipt", {}), main.get("timings", {})
+        when = f"  ·  {tm['t1_to_delivered_s']:.1f} s after T1 suspicion" if "t1_to_delivered_s" in tm else ""
+        rcpt = (f"DELIVERED to family-phone receiver (ack #{r.get('ack', {}).get('id')}, {r.get('rtt_ms')} ms){when}"
+                if r.get("delivered") else f"NOT delivered ({r.get('error')}) — local siren sounded")
+        text = main["message"] + (f"   ›  Follow-up written by the on-device LLM: {detail.removeprefix('Details: ')}" if detail else "")
+        out["notify"] = {"title": f"{main['level']} · {main['kind']}  ·  {rcpt}", "text": text,
+                         "color": RED if main["level"] == "URGENT" else AMBER}
+    elif step == "dismissed" and vlm is not None:
+        out["banner"] = {"text": f"VLM: “{vlm['label']}” › false alarm DISMISSED. No alert, nobody disturbed.", "color": GREEN}
+    else:
+        out["banner"] = {"text": "Monitoring…  only the skeleton on the right is kept."}
+    if phase == "WATCHING" and "notify" in out:
+        out["notify"]["title"] += f"   ·   long-lie timer: {st.get('watch_left_s', 0):.1f} s left"
+    return out

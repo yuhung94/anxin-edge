@@ -2,10 +2,10 @@
 
 After the VLM confirms a fall, AnXin speaks to the person, listens with Whisper and
 lets a 1.5B LLM decide what to do. Safety rules are deterministic and wrap the LLM:
-  * a distress keyword ALWAYS escalates (the LLM may escalate, never de-escalate it);
-  * silence escalates;
-  * "I'm OK" is accepted but the person must be back up within LONG_LIE_S, otherwise
-    a "long-lie" alert is sent (people who cannot get up are the highest-risk group).
+  * a non-negated distress keyword ALWAYS escalates ("my hip hurts"); a negated one
+    ("it doesn't hurt", "I don't need help") is left to the LLM;
+  * silence and unclear answers escalate;
+  * "I'm OK" sends an FYI and starts the long-lie timer (see guardian.py).
 Only text leaves the device: the caregiver gets an LLM-written message, never video.
 """
 from __future__ import annotations
@@ -22,12 +22,21 @@ from pathlib import Path
 import numpy as np
 
 SR = 16000
-LONG_LIE_S = 120
 
-CHECKIN_PROMPT = "Hello, this is AnXin. It looks like you may have fallen. Are you okay? Please tell me if you need help."
+CHECKIN_PROMPT = "This is AnXin. It looks like you fell. Are you okay?"
 
-DISTRESS = re.compile(r"\b(help|hurt|hurts|pain|can'?t (get|stand) up|cannot (get|stand) up|ambulance|bleeding|dizzy)\b|救命|好痛|起不來|幫忙",
-                      re.I)
+DISTRESS = re.compile(r"\b(help|hurt|hurts|hurting|pain|painful|can'?t (?:get|stand) up|cannot (?:get|stand) up|"
+                      r"ambulance|bleeding|dizzy)\b|救命|好痛|起不來|幫忙", re.I)
+NEGATION = re.compile(r"\b(no|not|don'?t|doesn'?t|didn'?t|isn'?t|ain'?t|never|without|nothing)\b|不|沒", re.I)
+
+
+def distress_hit(transcript: str) -> bool:
+    """True if any distress keyword appears WITHOUT a negation in the 3 words before it."""
+    for m in DISTRESS.finditer(transcript):
+        before = " ".join(re.findall(r"[\w']+", transcript[: m.start()])[-3:])
+        if not NEGATION.search(before):
+            return True
+    return False
 
 INTENT_SYSTEM = ("You classify what an elderly person said right after a possible fall. "
                  "Reply with exactly one word:\n"
@@ -87,7 +96,7 @@ class CheckinResult:
 def classify(transcript: str, llm) -> tuple[str, str]:
     if len(re.sub(r"[^\w]", "", transcript)) < 2:
         return "NO_RESPONSE", "silence"
-    if DISTRESS.search(transcript):
+    if distress_hit(transcript):
         return "HELP", "keyword"
     out = llm.chat(INTENT_SYSTEM, f'The person said: "{transcript}"', max_new_tokens=4).upper()
     for k in ("HELP", "OK", "UNCLEAR"):
@@ -107,14 +116,20 @@ def run_checkin(reply_audio: np.ndarray | None, asr, llm) -> CheckinResult:
     return CheckinResult(transcript, intent, by, decide(intent))
 
 
+def urgent_template(clock: str, room: str, transcript: str) -> str:
+    """Deterministic first alert: sent before any LLM call so the LLM can never delay or soften it."""
+    said = f'They said: "{transcript.strip().rstrip(".")}."' if transcript else "They did not answer."
+    return f"URGENT: Possible fall in the {room} at {clock}. {said} Please call or go to them now."
+
+
 URGENCY_LABEL = {"ALERT_URGENT": "URGENT", "ALERT_WATCH": "FYI"}
 
 
-def caregiver_message(event: dict, llm) -> str:
+def caregiver_message(event: dict, llm, label: str | None = None, next_step: str | None = None) -> str:
     """event: time, room, observation, person_said, action.
     Urgency and next step come from the deterministic policy; the LLM only phrases the message."""
     facts = {k: event[k] for k in ("time", "room", "observation", "person_said") if k in event}
-    facts["anxin_next_step"] = NEXT_STEP.get(event.get("action"), NEXT_STEP["ALERT_URGENT"])
+    facts["anxin_next_step"] = next_step or NEXT_STEP.get(event.get("action"), NEXT_STEP["ALERT_URGENT"])
     body = llm.chat(REPORT_SYSTEM, json.dumps(facts, ensure_ascii=False), max_new_tokens=120)
     body = re.sub(r"^\W*(urgent|urgency[^:]*|high|low|fyi)\W*[:\-–]\s*", "", body, flags=re.I).strip()
-    return f"{URGENCY_LABEL.get(event.get('action'), 'ALERT')}: {body}"
+    return f"{label or URGENCY_LABEL.get(event.get('action'), 'ALERT')}: {body}"
