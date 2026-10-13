@@ -1,0 +1,1469 @@
+{
+  "dataset": "UR Fall Detection Dataset, cam0 RGB (30 fall / 40 ADL)",
+  "backend": {
+    "pose": "yolov8s-pose",
+    "vlm": "cpu:Qwen2-VL-2B-Instruct"
+  },
+  "tier1_skeleton_only": {
+    "TP": 29,
+    "FN": 1,
+    "FP": 20,
+    "TN": 20,
+    "precision": 0.592,
+    "recall": 0.967,
+    "specificity": 0.5,
+    "f1": 0.734
+  },
+  "tier1_plus_vlm": {
+    "TP": 29,
+    "FN": 1,
+    "FP": 2,
+    "TN": 38,
+    "precision": 0.935,
+    "recall": 0.967,
+    "specificity": 0.95,
+    "f1": 0.951
+  },
+  "latency_ms": {
+    "pose_median": 28.5,
+    "vlm_median": 1036.4,
+    "vlm_calls": 138
+  },
+  "clips": {
+    "adl-01-cam0": {
+      "tier1_fire_frame": null,
+      "n_frames": 150,
+      "vlm": [],
+      "confirmed": false
+    },
+    "adl-02-cam0": {
+      "tier1_fire_frame": null,
+      "n_frames": 180,
+      "vlm": [],
+      "confirmed": false
+    },
+    "adl-03-cam0": {
+      "tier1_fire_frame": null,
+      "n_frames": 180,
+      "vlm": [],
+      "confirmed": false
+    },
+    "adl-04-cam0": {
+      "tier1_fire_frame": 87,
+      "n_frames": 150,
+      "vlm": [
+        {
+          "frame": 87,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 102,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 117,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        }
+      ],
+      "confirmed": false
+    },
+    "adl-05-cam0": {
+      "tier1_fire_frame": 116,
+      "n_frames": 180,
+      "vlm": [
+        {
+          "frame": 116,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 131,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 146,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        }
+      ],
+      "confirmed": false
+    },
+    "adl-06-cam0": {
+      "tier1_fire_frame": 184,
+      "n_frames": 230,
+      "vlm": [
+        {
+          "frame": 184,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 199,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 214,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        }
+      ],
+      "confirmed": false
+    },
+    "adl-07-cam0": {
+      "tier1_fire_frame": null,
+      "n_frames": 180,
+      "vlm": [],
+      "confirmed": false
+    },
+    "adl-08-cam0": {
+      "tier1_fire_frame": null,
+      "n_frames": 180,
+      "vlm": [],
+      "confirmed": false
+    },
+    "adl-09-cam0": {
+      "tier1_fire_frame": null,
+      "n_frames": 150,
+      "vlm": [],
+      "confirmed": false
+    },
+    "adl-10-cam0": {
+      "tier1_fire_frame": 163,
+      "n_frames": 300,
+      "vlm": [
+        {
+          "frame": 163,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 178,
+          "choice": "B",
+          "label": "sitting on a chair or sofa",
+          "is_fall": false,
+          "answer": "B"
+        },
+        {
+          "frame": 193,
+          "choice": "B",
+          "label": "sitting on a chair or sofa",
+          "is_fall": false,
+          "answer": "B"
+        }
+      ],
+      "confirmed": false
+    },
+    "adl-11-cam0": {
+      "tier1_fire_frame": null,
+      "n_frames": 300,
+      "vlm": [],
+      "confirmed": false
+    },
+    "adl-12-cam0": {
+      "tier1_fire_frame": null,
+      "n_frames": 250,
+      "vlm": [],
+      "confirmed": false
+    },
+    "adl-13-cam0": {
+      "tier1_fire_frame": 204,
+      "n_frames": 265,
+      "vlm": [
+        {
+          "frame": 204,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 219,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 234,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        }
+      ],
+      "confirmed": false
+    },
+    "adl-14-cam0": {
+      "tier1_fire_frame": null,
+      "n_frames": 235,
+      "vlm": [],
+      "confirmed": false
+    },
+    "adl-15-cam0": {
+      "tier1_fire_frame": null,
+      "n_frames": 275,
+      "vlm": [],
+      "confirmed": false
+    },
+    "adl-16-cam0": {
+      "tier1_fire_frame": 169,
+      "n_frames": 240,
+      "vlm": [
+        {
+          "frame": 169,
+          "choice": "C",
+          "label": "lying or sitting on a bed or sofa",
+          "is_fall": false,
+          "answer": "C"
+        },
+        {
+          "frame": 184,
+          "choice": "B",
+          "label": "sitting on a chair or sofa",
+          "is_fall": false,
+          "answer": "B"
+        },
+        {
+          "frame": 199,
+          "choice": "B",
+          "label": "sitting on a chair or sofa",
+          "is_fall": false,
+          "answer": "B"
+        }
+      ],
+      "confirmed": false
+    },
+    "adl-17-cam0": {
+      "tier1_fire_frame": 169,
+      "n_frames": 230,
+      "vlm": [
+        {
+          "frame": 169,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 184,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 199,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        }
+      ],
+      "confirmed": false
+    },
+    "adl-18-cam0": {
+      "tier1_fire_frame": null,
+      "n_frames": 265,
+      "vlm": [],
+      "confirmed": false
+    },
+    "adl-19-cam0": {
+      "tier1_fire_frame": null,
+      "n_frames": 250,
+      "vlm": [],
+      "confirmed": false
+    },
+    "adl-20-cam0": {
+      "tier1_fire_frame": null,
+      "n_frames": 270,
+      "vlm": [],
+      "confirmed": false
+    },
+    "adl-21-cam0": {
+      "tier1_fire_frame": 210,
+      "n_frames": 280,
+      "vlm": [
+        {
+          "frame": 210,
+          "choice": "B",
+          "label": "sitting on a chair or sofa",
+          "is_fall": false,
+          "answer": "B"
+        },
+        {
+          "frame": 225,
+          "choice": "B",
+          "label": "sitting on a chair or sofa",
+          "is_fall": false,
+          "answer": "B"
+        },
+        {
+          "frame": 240,
+          "choice": "B",
+          "label": "sitting on a chair or sofa",
+          "is_fall": false,
+          "answer": "B"
+        }
+      ],
+      "confirmed": false
+    },
+    "adl-22-cam0": {
+      "tier1_fire_frame": null,
+      "n_frames": 240,
+      "vlm": [],
+      "confirmed": false
+    },
+    "adl-23-cam0": {
+      "tier1_fire_frame": null,
+      "n_frames": 220,
+      "vlm": [],
+      "confirmed": false
+    },
+    "adl-24-cam0": {
+      "tier1_fire_frame": null,
+      "n_frames": 70,
+      "vlm": [],
+      "confirmed": false
+    },
+    "adl-25-cam0": {
+      "tier1_fire_frame": null,
+      "n_frames": 110,
+      "vlm": [],
+      "confirmed": false
+    },
+    "adl-26-cam0": {
+      "tier1_fire_frame": 59,
+      "n_frames": 95,
+      "vlm": [
+        {
+          "frame": 59,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 74,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 89,
+          "choice": "A",
+          "label": "standing or walking",
+          "is_fall": false,
+          "answer": "A"
+        }
+      ],
+      "confirmed": false
+    },
+    "adl-27-cam0": {
+      "tier1_fire_frame": null,
+      "n_frames": 100,
+      "vlm": [],
+      "confirmed": false
+    },
+    "adl-28-cam0": {
+      "tier1_fire_frame": null,
+      "n_frames": 85,
+      "vlm": [],
+      "confirmed": false
+    },
+    "adl-29-cam0": {
+      "tier1_fire_frame": null,
+      "n_frames": 125,
+      "vlm": [],
+      "confirmed": false
+    },
+    "adl-30-cam0": {
+      "tier1_fire_frame": 182,
+      "n_frames": 400,
+      "vlm": [
+        {
+          "frame": 182,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 197,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 212,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        }
+      ],
+      "confirmed": false
+    },
+    "adl-31-cam0": {
+      "tier1_fire_frame": 100,
+      "n_frames": 250,
+      "vlm": [
+        {
+          "frame": 100,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 115,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 130,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        }
+      ],
+      "confirmed": false
+    },
+    "adl-32-cam0": {
+      "tier1_fire_frame": 102,
+      "n_frames": 200,
+      "vlm": [
+        {
+          "frame": 102,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 117,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 132,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        }
+      ],
+      "confirmed": false
+    },
+    "adl-33-cam0": {
+      "tier1_fire_frame": 109,
+      "n_frames": 200,
+      "vlm": [
+        {
+          "frame": 109,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 124,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 139,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "adl-34-cam0": {
+      "tier1_fire_frame": 65,
+      "n_frames": 191,
+      "vlm": [
+        {
+          "frame": 65,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 80,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 95,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        }
+      ],
+      "confirmed": false
+    },
+    "adl-35-cam0": {
+      "tier1_fire_frame": 102,
+      "n_frames": 280,
+      "vlm": [
+        {
+          "frame": 102,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 117,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 132,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "adl-36-cam0": {
+      "tier1_fire_frame": 260,
+      "n_frames": 340,
+      "vlm": [
+        {
+          "frame": 260,
+          "choice": "C",
+          "label": "lying or sitting on a bed or sofa",
+          "is_fall": false,
+          "answer": "C"
+        },
+        {
+          "frame": 275,
+          "choice": "C",
+          "label": "lying or sitting on a bed or sofa",
+          "is_fall": false,
+          "answer": "C"
+        },
+        {
+          "frame": 290,
+          "choice": "C",
+          "label": "lying or sitting on a bed or sofa",
+          "is_fall": false,
+          "answer": "C"
+        }
+      ],
+      "confirmed": false
+    },
+    "adl-37-cam0": {
+      "tier1_fire_frame": 282,
+      "n_frames": 350,
+      "vlm": [
+        {
+          "frame": 282,
+          "choice": "C",
+          "label": "lying or sitting on a bed or sofa",
+          "is_fall": false,
+          "answer": "C"
+        },
+        {
+          "frame": 297,
+          "choice": "C",
+          "label": "lying or sitting on a bed or sofa",
+          "is_fall": false,
+          "answer": "C"
+        },
+        {
+          "frame": 312,
+          "choice": "C",
+          "label": "lying or sitting on a bed or sofa",
+          "is_fall": false,
+          "answer": "C"
+        }
+      ],
+      "confirmed": false
+    },
+    "adl-38-cam0": {
+      "tier1_fire_frame": 157,
+      "n_frames": 345,
+      "vlm": [
+        {
+          "frame": 157,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 172,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 187,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        }
+      ],
+      "confirmed": false
+    },
+    "adl-39-cam0": {
+      "tier1_fire_frame": 166,
+      "n_frames": 270,
+      "vlm": [
+        {
+          "frame": 166,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 181,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 196,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        }
+      ],
+      "confirmed": false
+    },
+    "adl-40-cam0": {
+      "tier1_fire_frame": 213,
+      "n_frames": 330,
+      "vlm": [
+        {
+          "frame": 213,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 228,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 243,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        }
+      ],
+      "confirmed": false
+    },
+    "fall-01-cam0": {
+      "tier1_fire_frame": 117,
+      "n_frames": 160,
+      "vlm": [
+        {
+          "frame": 117,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 132,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 147,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-02-cam0": {
+      "tier1_fire_frame": 70,
+      "n_frames": 110,
+      "vlm": [
+        {
+          "frame": 70,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 85,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 100,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-03-cam0": {
+      "tier1_fire_frame": 178,
+      "n_frames": 215,
+      "vlm": [
+        {
+          "frame": 178,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 193,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 208,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-04-cam0": {
+      "tier1_fire_frame": 35,
+      "n_frames": 96,
+      "vlm": [
+        {
+          "frame": 35,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 50,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 65,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-05-cam0": {
+      "tier1_fire_frame": 110,
+      "n_frames": 151,
+      "vlm": [
+        {
+          "frame": 110,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 125,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 140,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-06-cam0": {
+      "tier1_fire_frame": 52,
+      "n_frames": 100,
+      "vlm": [
+        {
+          "frame": 52,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 67,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 82,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-07-cam0": {
+      "tier1_fire_frame": 114,
+      "n_frames": 156,
+      "vlm": [
+        {
+          "frame": 114,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 129,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 144,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-08-cam0": {
+      "tier1_fire_frame": 46,
+      "n_frames": 91,
+      "vlm": [
+        {
+          "frame": 46,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 61,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 76,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-09-cam0": {
+      "tier1_fire_frame": 150,
+      "n_frames": 185,
+      "vlm": [
+        {
+          "frame": 150,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 165,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 180,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-10-cam0": {
+      "tier1_fire_frame": 57,
+      "n_frames": 130,
+      "vlm": [
+        {
+          "frame": 57,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 72,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 87,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-11-cam0": {
+      "tier1_fire_frame": 76,
+      "n_frames": 130,
+      "vlm": [
+        {
+          "frame": 76,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 91,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 106,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-12-cam0": {
+      "tier1_fire_frame": 51,
+      "n_frames": 110,
+      "vlm": [
+        {
+          "frame": 51,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 66,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 81,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-13-cam0": {
+      "tier1_fire_frame": null,
+      "n_frames": 85,
+      "vlm": [],
+      "confirmed": false
+    },
+    "fall-14-cam0": {
+      "tier1_fire_frame": 40,
+      "n_frames": 61,
+      "vlm": [
+        {
+          "frame": 40,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 55,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 60,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-15-cam0": {
+      "tier1_fire_frame": 57,
+      "n_frames": 71,
+      "vlm": [
+        {
+          "frame": 57,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 70,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-16-cam0": {
+      "tier1_fire_frame": 43,
+      "n_frames": 55,
+      "vlm": [
+        {
+          "frame": 43,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 54,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-17-cam0": {
+      "tier1_fire_frame": 86,
+      "n_frames": 95,
+      "vlm": [
+        {
+          "frame": 86,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 94,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-18-cam0": {
+      "tier1_fire_frame": 37,
+      "n_frames": 65,
+      "vlm": [
+        {
+          "frame": 37,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 52,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 64,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-19-cam0": {
+      "tier1_fire_frame": 62,
+      "n_frames": 100,
+      "vlm": [
+        {
+          "frame": 62,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 77,
+          "choice": "B",
+          "label": "sitting on a chair or sofa",
+          "is_fall": false,
+          "answer": "B"
+        },
+        {
+          "frame": 92,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-20-cam0": {
+      "tier1_fire_frame": 64,
+      "n_frames": 110,
+      "vlm": [
+        {
+          "frame": 64,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 79,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 94,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-21-cam0": {
+      "tier1_fire_frame": 54,
+      "n_frames": 55,
+      "vlm": [
+        {
+          "frame": 54,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-22-cam0": {
+      "tier1_fire_frame": 31,
+      "n_frames": 56,
+      "vlm": [
+        {
+          "frame": 31,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 46,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 55,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-23-cam0": {
+      "tier1_fire_frame": 61,
+      "n_frames": 75,
+      "vlm": [
+        {
+          "frame": 61,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 74,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-24-cam0": {
+      "tier1_fire_frame": 34,
+      "n_frames": 60,
+      "vlm": [
+        {
+          "frame": 34,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 49,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 59,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-25-cam0": {
+      "tier1_fire_frame": 78,
+      "n_frames": 85,
+      "vlm": [
+        {
+          "frame": 78,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 84,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-26-cam0": {
+      "tier1_fire_frame": 39,
+      "n_frames": 61,
+      "vlm": [
+        {
+          "frame": 39,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 54,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 60,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-27-cam0": {
+      "tier1_fire_frame": 86,
+      "n_frames": 92,
+      "vlm": [
+        {
+          "frame": 86,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 91,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-28-cam0": {
+      "tier1_fire_frame": 52,
+      "n_frames": 66,
+      "vlm": [
+        {
+          "frame": 52,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 65,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-29-cam0": {
+      "tier1_fire_frame": 82,
+      "n_frames": 99,
+      "vlm": [
+        {
+          "frame": 82,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 97,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 98,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    },
+    "fall-30-cam0": {
+      "tier1_fire_frame": 50,
+      "n_frames": 70,
+      "vlm": [
+        {
+          "frame": 50,
+          "choice": "D",
+          "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+          "is_fall": false,
+          "answer": "D"
+        },
+        {
+          "frame": 65,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        },
+        {
+          "frame": 69,
+          "choice": "E",
+          "label": "fallen and lying on the floor",
+          "is_fall": true,
+          "answer": "E"
+        }
+      ],
+      "confirmed": true
+    }
+  }
+}

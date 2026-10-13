@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+data/urfd/
+data/pose_cache/
+models/*.hef
+*.pt
+outputs/audio/
+outputs/*.jpg
+outputs/*.log
+outputs/video/*.mp4
+outputs/AnXin_Edge_Stage1_Demo.mp4
+.DS_Store

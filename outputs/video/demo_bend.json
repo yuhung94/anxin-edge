@@ -1,0 +1,13 @@
+{
+  "clip": "adl-04-cam0",
+  "verdict": "DISMISSED",
+  "vlm": {
+    "choice": "D",
+    "label": "bending, kneeling or crouching on purpose (e.g. picking something up)",
+    "is_fall": false,
+    "answer": "D",
+    "ms": 941.1045000015292
+  },
+  "verdict_frame": 117,
+  "duration_s": 9.43
+}

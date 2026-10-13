@@ -1,0 +1,13 @@
+# Stage I (laptop) backends. Stage II additionally needs HailoRT 5.x + hailo_platform (not on pip).
+torch>=2.4
+torchvision
+ultralytics>=8.3
+transformers>=4.57
+accelerate
+qwen-vl-utils
+openai-whisper
+opencv-python
+numpy
+pillow
+matplotlib
+huggingface_hub

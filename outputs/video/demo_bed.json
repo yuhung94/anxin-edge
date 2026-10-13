@@ -1,0 +1,13 @@
+{
+  "clip": "adl-36-cam0",
+  "verdict": "DISMISSED",
+  "vlm": {
+    "choice": "C",
+    "label": "lying or sitting on a bed or sofa",
+    "is_fall": false,
+    "answer": "C",
+    "ms": 949.5065419978346
+  },
+  "verdict_frame": 290,
+  "duration_s": 15.2
+}
