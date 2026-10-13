@@ -34,13 +34,23 @@ def main():
     a = ap.parse_args()
     frames = webcam(int(a.video)) if a.video.isdigit() else iter_frames(a.video)
     cascade = Cascade(make_pose(a.backend), make_vlm(a.backend))
+    banner = {"text": "Monitoring…  only the skeleton on the right is kept."}
     for r in cascade.run(frames):
         if r.vlm:
             print(f"[{r.t:6.2f}s] VLM: {r.vlm['choice']}) {r.vlm['label']}" + (f" -> {r.verdict}" if r.verdict else ""))
+            if r.verdict == "CONFIRMED":
+                banner = {"text": f"VLM: “{r.vlm['label']}” › fall CONFIRMED › voice check-in + family alert", "color": dash.RED}
+            elif r.verdict == "DISMISSED":
+                banner = {"text": f"VLM: “{r.vlm['label']}” › false alarm DISMISSED", "color": dash.GREEN}
         if a.show:
-            cv2.imshow("AnXin Edge", dash.render({"frame": r.frame, "kps": r.kps, "feats": r.feats, "t": r.t, "state": r.state}))
-            if cv2.waitKey(1) == 27:
+            img = dash.render({"frame": r.frame, "kps": r.kps, "feats": r.feats, "t": r.t, "state": r.state, "banner": banner})
+            cv2.imshow("AnXin Edge  (Esc to quit)", img)
+            # play at roughly real time; pause 3 s on a VLM decision so it can be read
+            if cv2.waitKey(3000 if r.verdict else 15) == 27:
                 break
+    if a.show:
+        cv2.waitKey(2000)
+        cv2.destroyAllWindows()
 
 
 if __name__ == "__main__":
