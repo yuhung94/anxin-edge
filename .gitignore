@@ -10,3 +10,7 @@ outputs/*.log
 outputs/video/*.mp4
 outputs/AnXin_Edge_Stage1_Demo.mp4
 .DS_Store
+outputs/runs/*.mp4
+outputs/family_phone.log
+data/urfd_cam1/
+data/pose_cache_cam1/

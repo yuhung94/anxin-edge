@@ -1,0 +1,190 @@
+{
+  "summary": {
+    "n": 30,
+    "t1_recall": 0.2,
+    "vlm_alone_recall_last_frame": 0.9666666666666667,
+    "pose_detect_rate": 0.73
+  },
+  "clips": {
+    "fall-01-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.47
+    },
+    "fall-02-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.99
+    },
+    "fall-03-cam1": {
+      "t1_fired": true,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.71
+    },
+    "fall-04-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.99
+    },
+    "fall-05-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.48
+    },
+    "fall-06-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.95
+    },
+    "fall-07-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.88
+    },
+    "fall-08-cam1": {
+      "t1_fired": true,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.86
+    },
+    "fall-09-cam1": {
+      "t1_fired": true,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.89
+    },
+    "fall-10-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 1.0
+    },
+    "fall-11-cam1": {
+      "t1_fired": true,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.82
+    },
+    "fall-12-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 1.0
+    },
+    "fall-13-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.34
+    },
+    "fall-14-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.84
+    },
+    "fall-15-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.45
+    },
+    "fall-16-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.8
+    },
+    "fall-17-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.34
+    },
+    "fall-18-cam1": {
+      "t1_fired": true,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.98
+    },
+    "fall-19-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.58
+    },
+    "fall-20-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "D",
+      "vlm_is_fall": false,
+      "person_detected_frac": 0.97
+    },
+    "fall-21-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.36
+    },
+    "fall-22-cam1": {
+      "t1_fired": true,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.84
+    },
+    "fall-23-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.45
+    },
+    "fall-24-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.7
+    },
+    "fall-25-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.42
+    },
+    "fall-26-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.95
+    },
+    "fall-27-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.45
+    },
+    "fall-28-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 1.0
+    },
+    "fall-29-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.51
+    },
+    "fall-30-cam1": {
+      "t1_fired": false,
+      "vlm_last_frame": "E",
+      "vlm_is_fall": true,
+      "person_detected_frac": 0.99
+    }
+  }
+}

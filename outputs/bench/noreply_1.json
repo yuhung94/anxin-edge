@@ -1,0 +1,58 @@
+{
+  "video": "data/urfd/fall-01-cam0.mp4",
+  "reply_wav": null,
+  "long_lie_s": 120.0,
+  "alerts": [
+    {
+      "level": "URGENT",
+      "kind": "fall_no_response",
+      "room": "living room",
+      "message": "URGENT: Possible fall in the living room at 21:14. They did not answer. Please call or go to them now.",
+      "stream_t": 3.9,
+      "sent_at": 1791897266.901006,
+      "receipt": {
+        "delivered": true,
+        "attempts": 1,
+        "rtt_ms": 21.2,
+        "channel": "webhook",
+        "ack": {
+          "ok": true,
+          "id": 7,
+          "received_at": 1791897266.919082
+        }
+      },
+      "timings": {
+        "t1_to_vlm_confirmed_s": 3.61,
+        "ask_s": 3.29,
+        "listen_s": 6.01,
+        "asr_intent_s": 0.0,
+        "deliver_s": 0.022,
+        "t1_to_delivered_s": 13.11
+      }
+    },
+    {
+      "level": "INFO",
+      "kind": "details",
+      "room": "living room",
+      "message": "Details: At 21:14, your elderly relative fell and is lying on the floor in the living room. There has been no response from them. Please call or go to them immediately as the AnXin speaker will stay in contact with them until help arrives.",
+      "stream_t": 3.9,
+      "sent_at": 1791897276.098507,
+      "receipt": {
+        "delivered": true,
+        "attempts": 1,
+        "rtt_ms": 4.6,
+        "channel": "webhook",
+        "ack": {
+          "ok": true,
+          "id": 8,
+          "received_at": 1791897276.101502
+        }
+      },
+      "timings": {
+        "llm_message_s": 9.14,
+        "deliver_s": 0.005,
+        "t1_to_delivered_s": 22.29
+      }
+    }
+  ]
+}

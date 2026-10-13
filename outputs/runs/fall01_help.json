@@ -1,0 +1,58 @@
+{
+  "video": "data/urfd/fall-01-cam0.mp4",
+  "reply_wav": "outputs/audio/reply_help.wav",
+  "long_lie_s": 120.0,
+  "alerts": [
+    {
+      "level": "URGENT",
+      "kind": "fall_help",
+      "room": "living room",
+      "message": "URGENT: Possible fall in the living room at 21:00. They said: \"Oh, I can't get up. My hip really hurts.\" Please call or go to them now.",
+      "stream_t": 3.9,
+      "sent_at": 1791896432.6098619,
+      "receipt": {
+        "delivered": true,
+        "attempts": 1,
+        "rtt_ms": 209.0,
+        "channel": "webhook",
+        "ack": {
+          "ok": true,
+          "id": 1,
+          "received_at": 1791896432.797952
+        }
+      },
+      "timings": {
+        "t1_to_vlm_confirmed_s": 4.59,
+        "ask_s": 3.28,
+        "listen_s": 4.36,
+        "asr_intent_s": 7.09,
+        "deliver_s": 0.209,
+        "t1_to_delivered_s": 24.71
+      }
+    },
+    {
+      "level": "INFO",
+      "kind": "details",
+      "room": "living room",
+      "message": "Details: At 21:00, AnXin detected that your relative fell in the living room and is lying on the floor. They responded by saying, \"Oh, I can't get up. My hip really hurts.\" Please call or go to them immediately as the AnXin speaker remains connected with them.",
+      "stream_t": 3.9,
+      "sent_at": 1791896461.965803,
+      "receipt": {
+        "delivered": true,
+        "attempts": 1,
+        "rtt_ms": 86.3,
+        "channel": "webhook",
+        "ack": {
+          "ok": true,
+          "id": 2,
+          "received_at": 1791896462.033494
+        }
+      },
+      "timings": {
+        "llm_message_s": 28.88,
+        "deliver_s": 0.086,
+        "t1_to_delivered_s": 53.94
+      }
+    }
+  ]
+}

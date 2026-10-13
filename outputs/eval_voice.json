@@ -1,0 +1,799 @@
+{
+  "summary": {
+    "samples": 84,
+    "voices": [
+      "Grandma (English (US))",
+      "Grandpa (English (US))",
+      "Daniel"
+    ],
+    "help_escalated": "35/36",
+    "ok_kept_as_fyi": "29/30",
+    "unclear_escalated": "18/18",
+    "decided_by": {
+      "keyword": 25,
+      "llm": 57,
+      "silence": 2
+    },
+    "missed_help": [
+      {
+        "label": "HELP",
+        "text": "I'm not hurt, but I can't get up.",
+        "voice": "Grandma (English (US))",
+        "heard": "I'm not hurt, but I can get up.",
+        "intent": "OK",
+        "by": "llm",
+        "action": "ALERT_WATCH"
+      }
+    ],
+    "false_urgent": [
+      {
+        "label": "OK",
+        "text": "I don't need help, I'm okay.",
+        "voice": "Daniel",
+        "heard": "I don't need a hell, I'm okay.",
+        "intent": "HELP",
+        "by": "llm",
+        "action": "ALERT_URGENT"
+      }
+    ],
+    "unclear_not_escalated": []
+  },
+  "rows": [
+    {
+      "label": "HELP",
+      "text": "I can't get up.",
+      "voice": "Grandma (English (US))",
+      "heard": "I can't get up.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "I can't get up.",
+      "voice": "Grandpa (English (US))",
+      "heard": "I can't get up.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "I can't get up.",
+      "voice": "Daniel",
+      "heard": "I can't get up.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "My hip really hurts.",
+      "voice": "Grandma (English (US))",
+      "heard": "My hip really hurts.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "My hip really hurts.",
+      "voice": "Grandpa (English (US))",
+      "heard": "my hip really hurts.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "My hip really hurts.",
+      "voice": "Daniel",
+      "heard": "My hip really hurts.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "Help me, please.",
+      "voice": "Grandma (English (US))",
+      "heard": "Please help me please.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "Help me, please.",
+      "voice": "Grandpa (English (US))",
+      "heard": "Help me please.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "Help me, please.",
+      "voice": "Daniel",
+      "heard": "Help me, please.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "I think I broke my wrist.",
+      "voice": "Grandma (English (US))",
+      "heard": "I think I broke my wrist.",
+      "intent": "HELP",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "I think I broke my wrist.",
+      "voice": "Grandpa (English (US))",
+      "heard": "I think I broke my wrist.",
+      "intent": "HELP",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "I think I broke my wrist.",
+      "voice": "Daniel",
+      "heard": "I think I broke my wrist.",
+      "intent": "HELP",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "Call my daughter, I'm hurt.",
+      "voice": "Grandma (English (US))",
+      "heard": "Call my daughter, I'm Earth.",
+      "intent": "UNCLEAR",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "Call my daughter, I'm hurt.",
+      "voice": "Grandpa (English (US))",
+      "heard": "Call my daughter, I'm hurt.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "Call my daughter, I'm hurt.",
+      "voice": "Daniel",
+      "heard": "Call my daughter, I'm hurt.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "I'm bleeding.",
+      "voice": "Grandma (English (US))",
+      "heard": "I'm bleeding.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "I'm bleeding.",
+      "voice": "Grandpa (English (US))",
+      "heard": "I'm bleeding.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "I'm bleeding.",
+      "voice": "Daniel",
+      "heard": "I'm bleeding.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "I feel dizzy, I can't stand.",
+      "voice": "Grandma (English (US))",
+      "heard": "I feel dizzy, I can stand.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "I feel dizzy, I can't stand.",
+      "voice": "Grandpa (English (US))",
+      "heard": "I feel dizzy, I can't stand.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "I feel dizzy, I can't stand.",
+      "voice": "Daniel",
+      "heard": "I feel dizzy, I can't stand.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "Ow, my back, it hurts so much.",
+      "voice": "Grandma (English (US))",
+      "heard": "my back is hurt so much",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "Ow, my back, it hurts so much.",
+      "voice": "Grandpa (English (US))",
+      "heard": "out my back. It hurts so much.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "Ow, my back, it hurts so much.",
+      "voice": "Daniel",
+      "heard": "Oh, my back, it hurts so much.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "Please call an ambulance.",
+      "voice": "Grandma (English (US))",
+      "heard": "Please call an ambulance.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "Please call an ambulance.",
+      "voice": "Grandpa (English (US))",
+      "heard": "please call an ambulance.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "Please call an ambulance.",
+      "voice": "Daniel",
+      "heard": "Please call an ambulance.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "I'm not okay.",
+      "voice": "Grandma (English (US))",
+      "heard": "I'm not okay.",
+      "intent": "HELP",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "I'm not okay.",
+      "voice": "Grandpa (English (US))",
+      "heard": "I'm not okay.",
+      "intent": "HELP",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "I'm not okay.",
+      "voice": "Daniel",
+      "heard": "I'm not okay.",
+      "intent": "HELP",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "I can't move my leg.",
+      "voice": "Grandma (English (US))",
+      "heard": "I can't move my leg.",
+      "intent": "HELP",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "I can't move my leg.",
+      "voice": "Grandpa (English (US))",
+      "heard": "I can't move my leg.",
+      "intent": "HELP",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "I can't move my leg.",
+      "voice": "Daniel",
+      "heard": "I can't move my leg.",
+      "intent": "HELP",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "I'm not hurt, but I can't get up.",
+      "voice": "Grandma (English (US))",
+      "heard": "I'm not hurt, but I can get up.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "HELP",
+      "text": "I'm not hurt, but I can't get up.",
+      "voice": "Grandpa (English (US))",
+      "heard": "I'm not hurt, but I can't get up.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "HELP",
+      "text": "I'm not hurt, but I can't get up.",
+      "voice": "Daniel",
+      "heard": "I'm not hurt, but I can't get up.",
+      "intent": "HELP",
+      "by": "keyword",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "OK",
+      "text": "I'm fine, I just slipped.",
+      "voice": "Grandma (English (US))",
+      "heard": "I'm fine, I just slipped.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "I'm fine, I just slipped.",
+      "voice": "Grandpa (English (US))",
+      "heard": "I'm fine, I just slipped.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "I'm fine, I just slipped.",
+      "voice": "Daniel",
+      "heard": "I'm fine, I just slipped.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "I'm okay, give me a minute.",
+      "voice": "Grandma (English (US))",
+      "heard": "I'm okay, give me a minute.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "I'm okay, give me a minute.",
+      "voice": "Grandpa (English (US))",
+      "heard": "I'm okay, give me a minute.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "I'm okay, give me a minute.",
+      "voice": "Daniel",
+      "heard": "I'm OK, give me a minute.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "Yes, yes, I'm alright.",
+      "voice": "Grandma (English (US))",
+      "heard": "Yes, yes, I'm alright.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "Yes, yes, I'm alright.",
+      "voice": "Grandpa (English (US))",
+      "heard": "Yes, yes, I'm alright.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "Yes, yes, I'm alright.",
+      "voice": "Daniel",
+      "heard": "Yes, yes, I'm alright.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "I don't need help, I'm okay.",
+      "voice": "Grandma (English (US))",
+      "heard": "I don't need help, I'm okay.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "I don't need help, I'm okay.",
+      "voice": "Grandpa (English (US))",
+      "heard": "I don't need help, I'm okay.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "I don't need help, I'm okay.",
+      "voice": "Daniel",
+      "heard": "I don't need a hell, I'm okay.",
+      "intent": "HELP",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "OK",
+      "text": "It doesn't hurt, I'm fine.",
+      "voice": "Grandma (English (US))",
+      "heard": "It doesn't hurt, I'm fine.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "It doesn't hurt, I'm fine.",
+      "voice": "Grandpa (English (US))",
+      "heard": "It doesn't hurt, I'm fine.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "It doesn't hurt, I'm fine.",
+      "voice": "Daniel",
+      "heard": "It doesn't hurt, I'm fine.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "No, no, I'm good, just picking up my keys.",
+      "voice": "Grandma (English (US))",
+      "heard": "No, no, I'm good. Just take enough my keys.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "No, no, I'm good, just picking up my keys.",
+      "voice": "Grandpa (English (US))",
+      "heard": "No, no, I'm good. Just take enough my keys.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "No, no, I'm good, just picking up my keys.",
+      "voice": "Daniel",
+      "heard": "No, no, I'm good, just picking up my keys.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "I'm okay dear, don't worry.",
+      "voice": "Grandma (English (US))",
+      "heard": "I'm okay dear, don't worry.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "I'm okay dear, don't worry.",
+      "voice": "Grandpa (English (US))",
+      "heard": "I'm okay dear, don't worry.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "I'm okay dear, don't worry.",
+      "voice": "Daniel",
+      "heard": "I'm okay dear, don't worry.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "I'm fine, I was just doing my exercises.",
+      "voice": "Grandma (English (US))",
+      "heard": "I'm fine, I was just doing my exercises.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "I'm fine, I was just doing my exercises.",
+      "voice": "Grandpa (English (US))",
+      "heard": "I'm fine. I was just doing my exercises.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "I'm fine, I was just doing my exercises.",
+      "voice": "Daniel",
+      "heard": "I'm fine, I was just doing my exercises.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "All good, I'm getting up now.",
+      "voice": "Grandma (English (US))",
+      "heard": "All good, I'm getting up now.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "All good, I'm getting up now.",
+      "voice": "Grandpa (English (US))",
+      "heard": "all good, I'm getting up now.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "All good, I'm getting up now.",
+      "voice": "Daniel",
+      "heard": "All good, I'm getting up now.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "No pain, I'm alright.",
+      "voice": "Grandma (English (US))",
+      "heard": "No pain, I'm alright.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "No pain, I'm alright.",
+      "voice": "Grandpa (English (US))",
+      "heard": "No pain, I'm alright.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "OK",
+      "text": "No pain, I'm alright.",
+      "voice": "Daniel",
+      "heard": "No pain, I'm alright.",
+      "intent": "OK",
+      "by": "llm",
+      "action": "ALERT_WATCH"
+    },
+    {
+      "label": "UNCLEAR",
+      "text": "Where are my glasses?",
+      "voice": "Grandma (English (US))",
+      "heard": "Where are my glasses?",
+      "intent": "UNCLEAR",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "UNCLEAR",
+      "text": "Where are my glasses?",
+      "voice": "Grandpa (English (US))",
+      "heard": "Where are my glasses?",
+      "intent": "UNCLEAR",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "UNCLEAR",
+      "text": "Where are my glasses?",
+      "voice": "Daniel",
+      "heard": "Where are my glasses?",
+      "intent": "UNCLEAR",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "UNCLEAR",
+      "text": "What time is it?",
+      "voice": "Grandma (English (US))",
+      "heard": "What time is it?",
+      "intent": "UNCLEAR",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "UNCLEAR",
+      "text": "What time is it?",
+      "voice": "Grandpa (English (US))",
+      "heard": "What time is it?",
+      "intent": "UNCLEAR",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "UNCLEAR",
+      "text": "What time is it?",
+      "voice": "Daniel",
+      "heard": "What time is it?",
+      "intent": "UNCLEAR",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "UNCLEAR",
+      "text": "Who is that?",
+      "voice": "Grandma (English (US))",
+      "heard": "Who is that?",
+      "intent": "UNCLEAR",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "UNCLEAR",
+      "text": "Who is that?",
+      "voice": "Grandpa (English (US))",
+      "heard": "Who is that?",
+      "intent": "UNCLEAR",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "UNCLEAR",
+      "text": "Who is that?",
+      "voice": "Daniel",
+      "heard": "Who is that?",
+      "intent": "UNCLEAR",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "UNCLEAR",
+      "text": "Hmm?",
+      "voice": "Grandma (English (US))",
+      "heard": "",
+      "intent": "NO_RESPONSE",
+      "by": "silence",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "UNCLEAR",
+      "text": "Hmm?",
+      "voice": "Grandpa (English (US))",
+      "heard": "",
+      "intent": "NO_RESPONSE",
+      "by": "silence",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "UNCLEAR",
+      "text": "Hmm?",
+      "voice": "Daniel",
+      "heard": "Hum.",
+      "intent": "UNCLEAR",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "UNCLEAR",
+      "text": "Is it dinner yet?",
+      "voice": "Grandma (English (US))",
+      "heard": "We had another check.",
+      "intent": "UNCLEAR",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "UNCLEAR",
+      "text": "Is it dinner yet?",
+      "voice": "Grandpa (English (US))",
+      "heard": "is it dinner yet?",
+      "intent": "UNCLEAR",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "UNCLEAR",
+      "text": "Is it dinner yet?",
+      "voice": "Daniel",
+      "heard": "Is it dinner yet?",
+      "intent": "UNCLEAR",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "UNCLEAR",
+      "text": "What happened?",
+      "voice": "Grandma (English (US))",
+      "heard": "what happened.",
+      "intent": "UNCLEAR",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "UNCLEAR",
+      "text": "What happened?",
+      "voice": "Grandpa (English (US))",
+      "heard": "what happened.",
+      "intent": "UNCLEAR",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    },
+    {
+      "label": "UNCLEAR",
+      "text": "What happened?",
+      "voice": "Daniel",
+      "heard": "What happened?",
+      "intent": "UNCLEAR",
+      "by": "llm",
+      "action": "ALERT_URGENT"
+    }
+  ]
+}

@@ -1,101 +1,94 @@
-# AnXin Edge (安心) — privacy-first fall guardian on the ASUS UGen300
+# AnXin Edge (安心) — privacy-first fall guardian, designed for the ASUS UGen300
 
 > **ASUS UGen AI League 2026 · Everyday AI · Battlefield Lightning (UGen300 / Hailo-10H)**
 
-AnXin Edge watches over older adults who live alone. It detects a fall, **verifies** it, **asks the person** whether they are okay, and sends the family a **text-only** alert.
-Four AI models run as a power-aware cascade on a single 2.5 W UGen300, and raw video never leaves the home.
+AnXin Edge watches over older adults who live alone. It detects a fall, **verifies** it, **asks the person** whether they are okay, **delivers a text-only alert** with a receipt, and escalates if the person stays on the floor (the "long lie").
+**Stage I status:** the whole loop runs on a laptop (CPU/MPS). The UGen300 backend is written but has **not yet been run on hardware**; that is Stage II.
 
-![dashboard](docs/dashboard_alert.png)
+![closed loop](docs/run_fall01_help.png)
 
-## Why
+## Status
 
-* Falls kill about 684,000 people a year and are the 2nd leading cause of unintentional-injury death (WHO, 2021).
-* For people living alone, the danger is the **long lie**: hours on the floor before anyone knows (Fleming & Brayne, BMJ 2008).
-* Pendants are not worn at night or in the bathroom, cloud cameras feel like surveillance, and radar cannot verify or talk.
+| Capability | Status | Evidence |
+|---|---|---|
+| Pose + skeleton fall state machine | verified offline | URFD 70 clips, side camera |
+| VLM verification (Qwen2-VL-2B) | verified offline | false alarms 20 → 2 of 40 |
+| Voice check-in: speak, listen, Whisper, rules + LLM | verified offline | 84 synthetic replies; mic input coded, not user-tested |
+| Alert delivery: HTTP webhook, receipt, retry, local siren | implemented | tested with the local receiver; Telegram adapter untested |
+| Long-lie escalation | implemented | unit tests + demo with the timer shortened to 1 s |
+| No raw-frame retention | implemented | `tests/test_privacy.py`: ≤ 2 frames in RAM at any time |
+| UGen300 backend (`--backend hailo`) | code only | adapted from ugen300-demos, never run on hardware |
+| Latency/power on UGen300, multi-person, user acceptance | Stage II | not measured / not validated |
 
-## How it works: a 4-tier cascade
+## How it works
 
 ```mermaid
 flowchart LR
-    CAM[Camera 30 FPS] --> T0["T0 Pose<br/>YOLOv8s-pose<br/>(every frame, UGen300)"]
-    T0 -->|17 keypoints<br/>pixels dropped| T1["T1 Skeleton state machine<br/>fast drop + stay down<br/>(host CPU, &lt;1 ms)"]
-    T1 -->|suspected fall<br/>~1% of frames| T2["T2 VLM verify<br/>Qwen2-VL-2B, 1 keyframe in RAM<br/>(UGen300)"]
-    T2 -->|confirmed| T3["T3 Voice check-in<br/>Whisper-Base + Qwen2.5-1.5B<br/>(UGen300)"]
-    T2 -->|bed / bending / sitting| X[Dismissed, nobody disturbed]
-    T3 -->|help / silence / unclear| U[URGENT text to family]
-    T3 -->|I'm okay| W[FYI text + 2-min long-lie timer]
+    CAM[Camera] --> T0["T0 Pose<br/>YOLOv8s-pose<br/>every frame"]
+    T0 -->|17 keypoints| T1["T1 Skeleton state machine<br/>fast drop + stay down"]
+    T1 -->|suspected fall| T2["T2 VLM verify<br/>Qwen2-VL-2B, 1 keyframe in RAM"]
+    T2 -->|bed / bending / sitting| X[Dismissed]
+    T2 -->|confirmed| T3["T3 Check-in<br/>speak · listen · Whisper-Base<br/>rules + Qwen2.5-1.5B"]
+    T3 -->|help / silence / unclear| U["URGENT (fixed template, sent before any LLM call)<br/>+ LLM-written details"]
+    T3 -->|I'm okay| W[FYI + long-lie timer]
+    W -->|still down after 120 s| U
+    W -->|gets up| R[FYI: back on their feet]
 ```
 
-| Tier | Model | Runs | Stage I backend | Stage II backend |
-|---|---|---|---|---|
-| T0 pose | YOLOv8s-pose (COCO-17) | every frame | Ultralytics, CPU/MPS | `yolov8s_pose.hef`, HailoRT InferModel |
-| T1 fall FSM | rules on torso angle, aspect, head drop, dwell | every frame | Python | Python (Pi 5 CPU) |
-| T2 verify | Qwen2-VL-2B-Instruct @ 336×336 | on suspicion | HF transformers | `Qwen2-VL-2B-Instruct.hef`, `genai.VLM` |
-| T3 ASR | Whisper-Base | on confirmed fall | openai-whisper | `Whisper-Base.hef`, `genai.Speech2Text` |
-| T3 LLM | Qwen2.5-1.5B-Instruct | on confirmed fall | HF transformers | `Qwen2.5-1.5B-Instruct.hef`, `genai.LLM` |
+* **Escalation is rule-based.** A non-negated distress word ("hurts", "can't get up") always means URGENT. Silence and unclear replies also mean URGENT. Negated phrases ("I don't need help") go to the LLM. The LLM never sets the urgency level; it only writes the follow-up text.
+* **Delivery** is an HTTP POST of JSON text to a webhook. The receiver must return an acknowledgement; failed sends are retried 3 times and then a local spoken siren sounds. `scripts/family_phone.py` is a stand-in receiver that runs as a separate process and logs every receipt.
+* **Privacy:** the pipeline holds at most 2 frames (the current and the last one). Records carry no pixels unless a display is requested. Audio is kept in RAM only. Only JSON text leaves the device.
 
-The pipeline code is identical on both paths: switch with `--backend cpu|hailo`. The Hailo code is adapted from the MIT-licensed [ugen300-demos](https://github.com/erp0917-stack/ugen300-demos) (see `anxin/backends/hailo_vendor/`).
+## Results (all reproducible, numbers in `outputs/*.json`)
 
-**Safety design:** tiers can only escalate. A distress keyword always triggers an urgent alert, and so do silence and confused replies. The urgency label and next step come from rules; the LLM only phrases the message, so it cannot downgrade an emergency.
+**Detection: URFD side camera, 70 clips (30 falls / 40 activities of daily living)**
 
-**Privacy design:** only the skeleton (rolling 3 s) and the alert text exist after processing. Frames and audio are handled in RAM and discarded.
+| | Falls detected | False alarms | Precision | Recall | Specificity |
+|---|---|---|---|---|---|
+| T1 skeleton only | 29/30 | 20/40 | 0.592 | 0.967 | 0.50 |
+| T1 + T2 VLM | 29/30 | 2/40 | 0.935 | 0.967 | 0.95 |
 
-## Stage I results: UR Fall Detection Dataset, 70 public clips
+Caveat: the rules and the prompt were developed on these same clips, so there is no held-out split.
 
-| | Falls detected (of 30) | False alarms (of 40 ADL) | Precision | Recall | Specificity | F1 |
-|---|---|---|---|---|---|---|
-| T1 skeleton only | 29 | 20 | 0.592 | 0.967 | 0.50 | 0.734 |
-| **T1 + T2 VLM** | **29** | **2** | **0.935** | **0.967** | **0.95** | **0.951** |
+**Failure analysis**
+* *fall-13 (missed):* the tracker switched to a false "person" (a bag on a chair) and the state machine reset. Fix: multi-person tracking.
+* *adl-33 and adl-35 (false alarms):* deliberate floor activity. The voice check-in turns these into an FYI note; they do not become zero.
+* *Ceiling camera (URFD cam1, nothing re-tuned):* T1 detects only **6/30** falls. The VLM alone on each clip's last frame flags 29/30. The skeleton rules need a wall-mounted camera; Stage II adds a low-rate VLM "patrol".
+* *Compute:* the VLM ran on 1.2% of frames, but on this event-dense dataset that was 29% of compute time. Power has not been measured.
 
-* The VLM ran on 138 of 11,936 frames (**1.2%**). Pose took 28.5 ms/frame and the VLM about 1.0 s/call (Apple M3, MPS).
-* Both remaining false alarms are deliberate floor activities (lying or crawling on the floor). The voice check-in resolves them ("I'm fine" → FYI only).
-* Full per-clip output: `outputs/eval.json`.
+**Voice check-in: 28 scripted replies × 3 TTS voices → Whisper-Base**
+help requests escalated 35/36 · "I'm fine" kept as FYI 29/30 · unclear replies escalated 18/18.
+The one missed help request was Whisper hearing "can't get up" as "can get up"; the long-lie timer is the backstop for that case. Real elderly, accented or Mandarin speech is untested.
 
-Example messages written on-device by Qwen2.5-1.5B (`outputs/video/*.json`):
+**End-to-end latency** (T1 suspicion → URGENT delivered, headless, MacBook Air M3 16 GB holding all 4 models): **11.7 s, 13.1 s, 19.4 s** (`outputs/bench/`). This is time-to-alert, not time-to-help, and it has not been measured on the UGen300.
 
-> **URGENT:** At 03:12, AnXin detected your relative falling in the living room. They responded by saying, "Oh, I can't get up. My hip really hurts." Please call or go to them immediately as the AnXin speaker remains connected with them.
-
-> **FYI:** At 14:40, AnXin observed your relative fallen and lying on the floor in the study. The person responded, "I'm alright, I just slipped. Give me a minute." AnXin will continue to watch and will send an urgent alert if they remain on the floor for more than two minutes.
-
-## Reproduce (about 15 minutes, no recording needed)
+## Run it
 
 ```bash
-uv venv --python 3.11 .venv && uv pip install --python .venv/bin/python -r requirements.txt
-./scripts/download_urfd.sh                      # 70 public URFD clips (~116 MB)
-.venv/bin/python scripts/extract_pose.py        # T0 pose on every clip -> data/pose_cache/
-.venv/bin/python scripts/tier1_check.py         # T1 only
-.venv/bin/python scripts/evaluate.py            # T1 + T2 VLM -> outputs/eval.json
-.venv/bin/python scripts/render_scenarios.py    # demo segments (live models) -> outputs/video/
-.venv/bin/python -m anxin --video data/urfd/fall-01-cam0.mp4 --show
+uv venv --python 3.11 .venv && uv pip install --python .venv/bin/python -r requirements.txt pytest
+./scripts/download_urfd.sh                       # public URFD clips (cam0 + cam1)
+.venv/bin/python -m pytest -q tests              # 11 tests
+.venv/bin/python scripts/family_phone.py &       # stand-in receiver: http://127.0.0.1:8799
+.venv/bin/python -m anxin --video data/urfd/fall-01-cam0.mp4 --reply-wav outputs/audio/reply_help.wav --show
+.venv/bin/python -m anxin --video 0 --mic --show # live camera + microphone
 ```
 
-Stage II on a UGen300 (Pi 5 or Windows/Linux PC with HailoRT 5.x): put the `.hef` files from the Hailo Model Zoo / GenAI Model Zoo into `models/`, then run with `--backend hailo`.
+* Evaluations: `scripts/extract_pose.py`, `scripts/evaluate.py`, `scripts/eval_cam1.py`, `scripts/eval_voice.py`, `scripts/bench_e2e.sh`
+* `--record out.mp4` writes a wall-clock screen recording. Blocking steps (VLM, speech, LLM) appear for exactly as long as they took.
+* Dataset replay uses a TTS WAV as the person's reply, because the dataset has no audio. The dashboard labels this on screen.
+* Stage II: put the `.hef` files in `models/` and add `--backend hailo`.
 
-## Repository layout
+## Layout
 
 ```
-anxin/
-  backends/pose.py     T0 pose (cpu | hailo)
-  fall.py              T1 tracker + skeleton fall state machine
-  backends/vlm.py      T2 Qwen2-VL verifier (cpu | hailo)
-  backends/genai.py    T3 Whisper + Qwen2.5 LLM (cpu | hailo)
-  checkin.py           voice check-in, safety rules, caregiver message
-  pipeline.py          the cascade
-  dashboard.py         demo / live dashboard renderer
-scripts/               dataset download, pose cache, evaluation, demo rendering, video assembly
+anxin/  pipeline.py (T0-T2) · fall.py (T1) · guardian.py (T3 + escalation + long-lie) · checkin.py (rules, prompts)
+        notify.py (delivery) · audio.py · dashboard.py · recorder.py · backends/ (cpu | hailo)
+scripts/ dataset download, evaluations, latency bench, family_phone receiver
+tests/   privacy, rules, guardian escalation, delivery
 ```
-
-## Stage II plan (Nov 6 – Dec 4)
-
-1. Port the 4 `.hef` models to UGen300 + Raspberry Pi 5; measure FPS, latency, power.
-2. Live loop: camera, speaker-mic check-in, LINE/Telegram alert relay, long-lie timer.
-3. Robustness: Le2i cross-dataset test, low light (Zero-DCE on Hailo), multiple people, zh-TW voice.
-4. Performance report, documentation, 10-minute demo on the UGen300.
 
 ## Data, models and licences
 
-* UR Fall Detection Dataset: B. Kwolek, M. Kepski, *Human fall detection on embedded platform using depth maps and wireless accelerometer*, CMPB 117(3), 2014. Downloaded by script and not redistributed.
-* YOLOv8 (Ultralytics, AGPL-3.0), Qwen2-VL / Qwen2.5 (Apache-2.0), Whisper (MIT), Hailo Model Zoo.
-* The demo video's elderly reply audio is synthesised with macOS TTS, because the dataset has no audio. Every other on-screen output is produced live by the models.
+UR Fall Detection Dataset (Kwolek & Kepski, CMPB 2014), downloaded by script and not redistributed. YOLOv8 (Ultralytics, AGPL-3.0), Qwen2-VL / Qwen2.5 (Apache-2.0), Whisper (MIT), Hailo Model Zoo. The Hailo integration is adapted from [ugen300-demos](https://github.com/erp0917-stack/ugen300-demos) (MIT).
 
 MIT License © 2026 Team AnXin
