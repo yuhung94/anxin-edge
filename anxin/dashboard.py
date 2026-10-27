@@ -220,7 +220,10 @@ def guardian_view(rec, st: dict, disclaimer: str | None = None, pose_ms: float |
         when = f"  ·  {tm['t1_to_delivered_s']:.1f} s after T1 suspicion" if "t1_to_delivered_s" in tm else ""
         rcpt = (f"DELIVERED to family-phone receiver (ack #{r.get('ack', {}).get('id')}, {r.get('rtt_ms')} ms){when}"
                 if r.get("delivered") else f"NOT delivered ({r.get('error')}) — local siren sounded")
-        text = main["message"] + (f"   ›  Follow-up written by the on-device LLM: {detail.removeprefix('Details: ')}" if detail else "")
+        if detail:
+            d = detail.removeprefix("Details: ")
+            d = d if len(d) <= 150 else d[:147].rsplit(" ", 1)[0] + " …"
+        text = main["message"] + (f"   ›  LLM follow-up: {d}" if detail else "")
         out["notify"] = {"title": f"{main['level']} · {main['kind']}  ·  {rcpt}", "text": text,
                          "color": RED if main["level"] == "URGENT" else AMBER}
     elif step == "dismissed" and vlm is not None:

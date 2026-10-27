@@ -1,8 +1,13 @@
-"""Assemble the ~3-minute Stage I demo video: narrated slides + live-cascade demo segments.
+"""Assemble the Stage I demo video (≈3 min) from narrated slides + UNEDITED live recordings.
 
-Usage: python scripts/make_video.py ../deck/png   (slide PNGs from deck/build.sh)
-Requires outputs/video/demo_*.mp4 from scripts/render_scenarios.py.
+Recordings come from `python -m anxin ... --record outputs/runs/<name>.mp4` (wall-clock screen
+recordings of the running program; see scripts/record_runs.sh). They are inserted as-is: no
+cuts, no speed-up, no overlays. Narration is only placed on slide segments.
+
+Usage:  python scripts/make_video.py <slide-png-dir>
+Narration: Kokoro-82M neural TTS (Linux/GPU) when installed, else macOS `say`.
 """
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -14,42 +19,68 @@ from anxin.checkin import speak  # noqa: E402
 
 SLIDES = Path(sys.argv[1] if len(sys.argv) > 1 else ROOT.parent / "deck/png")
 VOICE = "Samantha"
+_KOKORO = None
+
+
+def narrate(text: str, out: Path) -> Path:
+    global _KOKORO
+    if shutil.which("say"):
+        return speak(text, out, VOICE, rate=185)
+    import numpy as np
+    import soundfile as sf
+    from kokoro import KPipeline
+
+    _KOKORO = _KOKORO or KPipeline(lang_code="a")
+    audio = np.concatenate([a for _, _, a in _KOKORO(text, voice="af_heart", speed=1.05)])
+    sf.write(out, audio, 24000)
+    return out
 ENC = ["-c:v", "libx264", "-pix_fmt", "yuv420p", "-r", "30", "-crf", "20", "-c:a", "aac", "-ar", "44100", "-ac", "2"]
 
 TIMELINE = [
-    ("slide", 1, "This is AnXin Edge. AnXin means peace of mind in Mandarin. It is a privacy-first fall guardian for older "
-                 "adults who live alone, running four AI models on one ASUS UGen 300 accelerator, at about two and a half watts."),
-    ("slide", 3, "Falls kill around six hundred eighty thousand people a year. For people living alone, the real danger is "
-                 "the long lie: hours on the floor before anyone knows. Pendants are often not worn, and few people want a "
-                 "cloud camera in their bedroom or bathroom."),
-    ("slide", 6, "AnXin is a four-tier cascade. Tier zero, YOLOv8 pose, turns every frame into a skeleton. Tier one, a "
-                 "skeleton state machine, flags fast falls. Only then does tier two, the Qwen2 V L vision language model, "
-                 "verify one keyframe. Tier three talks to the person, using Whisper and a small Qwen language model."),
-    ("video", "demo_fall_help", None),
-    ("video", "demo_bed", None),
-    ("video", "demo_bend", None),
-    ("video", "demo_fall_ok", None),
-    ("slide", 10, "On all seventy clips of the U R Fall dataset, the skeleton tier alone catches twenty-nine of thirty falls, "
-                  "but raises twenty false alarms. Adding the VLM keeps the same recall, and cuts false alarms to two, "
-                  "while the VLM runs on only about one percent of frames."),
-    ("slide", 17, "AnXin Edge. Camera-level accuracy, radar-level privacy. Thank you."),
+    ("slide", 1, "AnXin Edge guards older adults who live alone. Here is a real fall from a public dataset, processed "
+                 "end to end. This is an unedited, real-time recording."),
+    ("rec", "fall01_help"),
+    ("slide", 3, "What is real today: the whole loop runs on a laptop and a GPU server, and is tested. The UGen 300 "
+                 "version is written but not yet run on the hardware. That is stage two."),
+    ("slide", 7, "Pose and skeleton rules run on every frame. The vision language model only checks suspected falls. "
+                 "Escalation uses fixed rules, so urgent alerts never wait for the language model."),
+    ("slide", 12, "Lying down on a bed looks like a fall to the skeleton tier. The vision language model dismisses it."),
+    ("rec", "adl36_bed"),
+    ("slide", 6, "If the person says they are okay but stays down, a long-lie timer escalates. Default two minutes; "
+                 "shortened to one second here because dataset clips are short."),
+    ("rec", "fall10_ok_longlie"),
+    ("slide", 13, "On seventy public clips, false alarms drop from twenty to two, with twenty-nine of thirty falls detected. "
+                  "We also show where it fails, including a ceiling camera, where the skeleton tier catches six of thirty."),
+    ("slide", 17, "Stage two moves the same code to the UGen 300, and measures accuracy, latency and power on the "
+                  "real hardware."),
+    ("slide", 20, "AnXin Edge. Thank you."),
 ]
 
 
 def main():
     work = Path(tempfile.mkdtemp())
     parts = []
-    for k, (kind, ref, text) in enumerate(TIMELINE):
+    for k, item in enumerate(TIMELINE):
         seg = work / f"seg{k:02d}.mp4"
-        if kind == "slide":
-            png = SLIDES / f"slide-{ref:02d}.png"
-            wav = speak(text, work / f"n{k}.wav", VOICE)
-            subprocess.run(["ffmpeg", "-v", "error", "-y", "-loop", "1", "-i", str(png), "-i", str(wav),
-                            "-filter_complex", "[0:v]scale=1280:720,format=yuv420p[v];[1:a]adelay=400|400,apad=pad_dur=0.8[a]",
+        if item[0] == "slide":
+            _, ref, text = item
+            wav = narrate(text, work / f"n{k}.wav")
+            subprocess.run(["ffmpeg", "-v", "error", "-y", "-loop", "1", "-i", str(SLIDES / f"slide-{ref:02d}.png"), "-i", str(wav),
+                            "-filter_complex", "[0:v]scale=1280:720,format=yuv420p[v];[1:a]adelay=300|300,apad=pad_dur=0.6[a]",
                             "-map", "[v]", "-map", "[a]", "-shortest", *ENC, str(seg)], check=True)
         else:
-            subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(ROOT / "outputs/video" / f"{ref}.mp4"), *ENC, str(seg)],
-                           check=True)
+            src = ROOT / "outputs/runs" / f"{item[1]}.mp4"
+            # add a silent track if the recording has no audio, so concat stays aligned
+            subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(src), "-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo",
+                            "-filter_complex", "[0:v]scale=1280:720[v]", "-map", "[v]", "-map", "0:a?", "-map", "1:a",
+                            "-shortest", *ENC, str(seg.with_suffix(".tmp.mp4"))], check=True)
+            has_audio = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "a", "-show_entries", "stream=index",
+                                        "-of", "csv=p=0", str(src)], capture_output=True, text=True).stdout.strip()
+            amap = "0:a:0"
+            subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(seg.with_suffix(".tmp.mp4")), "-map", "0:v", "-map", amap,
+                            "-c", "copy", str(seg)], check=True)
+            if not has_audio:
+                print(f"note: {item[1]} has no audio track (silence added)")
         parts.append(seg)
     lst = work / "list.txt"
     lst.write_text("".join(f"file '{p}'\n" for p in parts))
