@@ -1,17 +1,32 @@
+# Python / tooling
 .venv/
 __pycache__/
-data/urfd/
-data/pose_cache/
+*.pyc
+.pytest_cache/
+.DS_Store
+
+# Datasets and caches (downloaded by scripts/download_urfd.sh; not redistributed)
+data/
+
+# Model weights (downloaded at runtime / from the Hailo Model Zoo)
 models/*.hef
 *.pt
+*.safetensors
+
+# Fonts copied for rendering on Linux (licensed, not redistributable)
+fonts/
+
+# Generated media (large); results are kept as JSON
+*.mp4
 outputs/audio/
 outputs/*.jpg
 outputs/*.log
-outputs/video/*.mp4
-outputs/AnXin_Edge_Stage1_Demo.mp4
-.DS_Store
-outputs/runs/*.mp4
-outputs/family_phone.log
-data/urfd_cam1/
-data/pose_cache_cam1/
-fonts/
+outputs/video/
+
+# GPU-server helpers that contain machine-specific paths
+env.sh
+setup.sh
+prefetch_models.sh
+redo_video.sh
+slides_png/
+*.log

@@ -1,0 +1,58 @@
+{
+  "video": "data/urfd/fall-10-cam0.mp4",
+  "reply_wav": "outputs/audio/reply_ok.wav",
+  "long_lie_s": 1.0,
+  "alerts": [
+    {
+      "level": "FYI",
+      "kind": "fall_ok",
+      "room": "living room",
+      "message": "FYI: At 14:16, AnXin observed your elderly relative fallen and lying on the floor in the living room. The person responded, \"I'm alright, I just slipped. Give me a minute.\" AnXin will keep watching and will send an urgent alert if they are still on the floor after 1 second.",
+      "stream_t": 2.9,
+      "sent_at": 1793081773.6153903,
+      "receipt": {
+        "delivered": true,
+        "attempts": 1,
+        "rtt_ms": 4.8,
+        "channel": "webhook",
+        "ack": {
+          "ok": true,
+          "id": 3,
+          "received_at": 1793081773.6174507
+        }
+      },
+      "timings": {
+        "t1_to_vlm_confirmed_s": 3.82,
+        "ask_s": 3.27,
+        "listen_s": 4.51,
+        "asr_intent_s": 0.45,
+        "llm_message_s": 3.74,
+        "deliver_s": 0.005,
+        "t1_to_delivered_s": 19.39
+      }
+    },
+    {
+      "level": "URGENT",
+      "kind": "long_lie",
+      "room": "living room",
+      "message": "URGENT: Your relative said they were okay, but they have now been on the floor in the living room for more than 1 second and may not be able to get up. Please call or go to them now.",
+      "stream_t": 3.9,
+      "sent_at": 1793081776.8570747,
+      "receipt": {
+        "delivered": true,
+        "attempts": 1,
+        "rtt_ms": 3.3,
+        "channel": "webhook",
+        "ack": {
+          "ok": true,
+          "id": 4,
+          "received_at": 1793081776.8588636
+        }
+      },
+      "timings": {
+        "deliver_s": 0.003,
+        "t1_to_delivered_s": 22.63
+      }
+    }
+  ]
+}
