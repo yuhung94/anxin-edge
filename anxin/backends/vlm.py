@@ -51,8 +51,8 @@ class HFQwen2VL:
         from transformers import AutoProcessor, Qwen2VLForConditionalGeneration
 
         self.torch = torch
-        self.device = device or ("mps" if torch.backends.mps.is_available() else "cpu")
-        dtype = torch.float16 if self.device == "mps" else torch.float32
+        self.device = device or ("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
+        dtype = torch.float16 if self.device in ("mps", "cuda") else torch.float32
         self.model = Qwen2VLForConditionalGeneration.from_pretrained(model_id, dtype=dtype).to(self.device).eval()
         px = INPUT_SIZE * INPUT_SIZE
         self.proc = AutoProcessor.from_pretrained(model_id, min_pixels=px, max_pixels=px)

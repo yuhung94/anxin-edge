@@ -76,7 +76,13 @@ def main():
         from .recorder import Recorder
         dash_rec = Recorder(a.record)
     pose_hist = []
-    backend = f"backend: {a.backend}  ·  " + ("laptop CPU/MPS (Stage I)" if a.backend == "cpu" else "ASUS UGen300 (Hailo-10H)")
+    if a.backend == "hailo":
+        where = "ASUS UGen300 (Hailo-10H)"
+    else:
+        import torch
+        where = (f"{torch.cuda.get_device_name(0)} GPU, dev server (Stage I)" if torch.cuda.is_available()
+                 else "laptop CPU/MPS (Stage I)")
+    backend = f"backend: {a.backend}  ·  {where}"
 
     def draw(rec, st):
         img = dash.render(dash.guardian_view(rec, st, disclaimer, sorted(pose_hist)[len(pose_hist) // 2] if pose_hist else None, backend))

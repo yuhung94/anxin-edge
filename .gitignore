@@ -14,3 +14,4 @@ outputs/runs/*.mp4
 outputs/family_phone.log
 data/urfd_cam1/
 data/pose_cache_cam1/
+fonts/

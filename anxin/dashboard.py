@@ -1,6 +1,7 @@
 """1280x720 dashboard renderer used for the demo video and the live viewer."""
 from __future__ import annotations
 
+import os
 import textwrap
 
 import cv2
@@ -22,7 +23,7 @@ TEAL = (64, 210, 200)
 SKELETON = [(5, 7), (7, 9), (6, 8), (8, 10), (5, 6), (5, 11), (6, 12), (11, 12), (11, 13), (13, 15), (12, 14), (14, 16),
             (0, 1), (0, 2), (1, 3), (2, 4), (0, 5), (0, 6)]
 
-_F = "/System/Library/Fonts/Avenir Next.ttc"
+_F = os.environ.get("ANXIN_FONT", "/System/Library/Fonts/Avenir Next.ttc")
 
 
 def font(size, w="medium"):

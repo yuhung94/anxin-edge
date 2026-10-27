@@ -19,10 +19,13 @@ class WhisperCPU:
     def __init__(self, size: str = "base"):
         import whisper
 
-        self.model = whisper.load_model(size, device="cpu")
+        import torch
+
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.model = whisper.load_model(size, device=self.device)
 
     def transcribe(self, audio_f32: np.ndarray, language: str | None = None) -> str:
-        return self.model.transcribe(audio_f32, language=language, fp16=False)["text"].strip()
+        return self.model.transcribe(audio_f32, language=language, fp16=self.device == "cuda")["text"].strip()
 
 
 class WhisperHailo:
@@ -55,8 +58,8 @@ class QwenCPU:
         from transformers import AutoModelForCausalLM, AutoTokenizer
 
         self.torch = torch
-        self.device = device or ("mps" if torch.backends.mps.is_available() else "cpu")
-        dtype = torch.float16 if self.device == "mps" else torch.float32
+        self.device = device or ("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
+        dtype = torch.float16 if self.device in ("mps", "cuda") else torch.float32
         self.tok = AutoTokenizer.from_pretrained(model_id)
         self.model = AutoModelForCausalLM.from_pretrained(model_id, dtype=dtype).to(self.device).eval()
 

@@ -8,6 +8,7 @@ TTS prompt cache. `events` logs (wall_time, wav) so a recording can include the 
 """
 from __future__ import annotations
 
+import hashlib
 import shutil
 import subprocess
 import tempfile
@@ -17,6 +18,9 @@ from pathlib import Path
 import numpy as np
 
 from .checkin import SR, load_wav, speak
+
+
+TTS_DIR = Path(__file__).resolve().parents[1] / "assets/tts"
 
 
 class AudioIO:
@@ -37,8 +41,12 @@ class AudioIO:
     def prepare(self, text: str) -> Path:
         """Synthesise a fixed prompt once at start-up so speaking it later has no TTS delay."""
         if text not in self._cache:
-            self._n += 1
-            self._cache[text] = speak(text, self.tmp / f"say{self._n}.wav", self.voice)
+            pre = TTS_DIR / f"{hashlib.sha1((self.voice + text).encode()).hexdigest()[:12]}.wav"
+            if pre.exists():  # pre-synthesised on a machine with a better TTS (scripts/make_tts_cache.py)
+                self._cache[text] = pre
+            else:
+                self._n += 1
+                self._cache[text] = speak(text, self.tmp / f"say{self._n}.wav", self.voice)
         return self._cache[text]
 
     def say(self, text: str) -> float:

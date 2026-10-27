@@ -22,7 +22,7 @@ class UltralyticsPose:
         import torch
 
         self.model = YOLO(weights)
-        self.device = device or ("mps" if torch.backends.mps.is_available() else "cpu")
+        self.device = device or ("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
         self.conf = conf
 
     def infer(self, frame_bgr: np.ndarray) -> list[np.ndarray]:
